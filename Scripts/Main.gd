@@ -5,7 +5,6 @@ var r_dist:float = 22.2
 var q_dist:float = 19.2
 var s_dist:float = 11.1
 @export var Ptile:PackedScene
-@export var Psub_tile:PackedScene
 @export var Ptower_base:PackedScene
 @export var Ptower_heart:PackedScene
 @export var Pmonster:PackedScene
@@ -128,7 +127,7 @@ func create_isle(size:int,direction:String):
 	var castle = Ptower_base.instantiate()
 	castle.set_position(vector)
 	add_child(castle)
-	var tile:Node3D = Psub_tile.instantiate()
+	var tile:Node3D = Ptile.instantiate()
 	tile.add_to_group("sub_isle_tile")
 	castle.add_child(tile)
 	var isle:Array[Vector2i] = [Vector2i(0,0)]
@@ -153,5 +152,5 @@ func carth_to_axial(coord:Vector3):
 	var z = roundi(coord.z/q_dist)
 	return Vector2(roundi((coord.x-z*s_dist)/r_dist),z)
 
-func _on_area_entered():
+func _on_area_entered(body):
 	pass
