@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn8hiju3xo1my"]
+
+[ext_resource type="ArrayMesh" uid="uid://c8dd3tem1ucaq" path="res://Assets/Hexagone Base V2.obj" id="1_68yp1"]
+[ext_resource type="Shape3D" uid="uid://njhm6w3dr22" path="res://Assets/hex_shape_3d.tres" id="2_swwmb"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u4mfk"]
+radius = 22.0
+
+[node name="Tile" type="Node3D" groups=["empty", "tile"]]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.8, 0)
+mesh = ExtResource("1_68yp1")
+
+[node name="Tile_shape" type="Area3D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tile_shape"]
+shape = ExtResource("2_swwmb")
+
+[node name="Astar_detector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Astar_detector"]
+shape = SubResource("SphereShape3D_u4mfk")

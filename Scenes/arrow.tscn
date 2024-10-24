@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi08vv1jb110a"]
+
+[ext_resource type="Script" path="res://Scripts/arrow.gd" id="1_2sjth"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_81373"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4hvsb"]
+material = SubResource("StandardMaterial3D_81373")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_11dpl"]
+
+[node name="Arrow" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+input_ray_pickable = false
+script = ExtResource("1_2sjth")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_4hvsb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_11dpl")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

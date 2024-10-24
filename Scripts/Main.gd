@@ -1,0 +1,157 @@
+extends Node3D
+
+@export var life:int = 20
+var r_dist:float = 22.2
+var q_dist:float = 19.2
+var s_dist:float = 11.1
+@export var Ptile:PackedScene
+@export var Psub_tile:PackedScene
+@export var Ptower_base:PackedScene
+@export var Ptower_heart:PackedScene
+@export var Pmonster:PackedScene
+@export var Ptower_archer:PackedScene
+@onready var Main:CharacterBody3D = $Main_island
+
+var astar:AStar3D = AStar3D.new()
+var axial:Array[Vector2i] = [Vector2i(-1,1),Vector2i(1,-1),Vector2i(0,1),Vector2i(-1,0),Vector2i(1,0),Vector2i(0,-1)]
+var axial_coordinates:Array[Vector2i]
+var list_tile:Array[Node3D]
+
+func _ready():
+	$UI/life_counter.set_text("Life : " + str(life))
+	create_main_isle()
+	var heart = Ptower_heart.instantiate()
+	Main.add_child(heart)
+	heart.global_position = Vector3(0,0,0)
+	create_isle(5,"S")
+	#create_isle(5,"SW")
+	#create_isle(5,"S")
+	#create_isle(5,"N")
+
+func _process(_delta):
+	if Input.is_action_just_pressed("add_tower"):
+		var mouse_pos:Vector2 = get_viewport().get_mouse_position()
+		var origin:Vector3 = $Main_island/Marker3D/Camera3D.project_ray_origin(mouse_pos)
+		var end:Vector3 = origin + $Main_island/Marker3D/Camera3D.project_ray_normal(mouse_pos) * 1000
+		var query:PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end)
+		query.set_collide_with_areas(true)
+		var collision:Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
+		if collision:
+			var entity = collision.collider.get_parent_node_3d()
+			if entity.is_in_group("empty"):
+				if entity.is_in_group("tile"):
+					var tower_base = Ptower_base.instantiate()
+					entity.add_child(tower_base)
+					entity.remove_from_group("empty")
+					astar.remove_point(astar.get_closest_point(entity.global_position))
+				elif entity.is_in_group("tower_base"):
+					var tower_archer = Ptower_archer.instantiate()
+					entity.add_child(tower_archer)
+					entity.remove_from_group("empty")
+	if Input.is_action_just_pressed("add_monster"):
+		var mouse_pos:Vector2 = get_viewport().get_mouse_position()
+		var origin:Vector3 = $Main_island/Marker3D/Camera3D.project_ray_origin(mouse_pos)
+		var end:Vector3 = origin + $Main_island/Marker3D/Camera3D.project_ray_normal(mouse_pos) * 1000
+		var query:PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end)
+		query.set_collide_with_areas(true)
+		var collision:Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
+		if collision:
+			var entity = collision.collider.get_parent_node_3d()
+			if entity.is_in_group("tile") and entity.is_in_group("empty"):
+				summon_monster(entity.global_position)
+	if Input.is_action_just_pressed("snap"):
+		var ax = carth_to_axial(Main.global_position)
+		var carth = axial_to_carth(ax)
+		Main.global_position = carth
+		for tile in list_tile:
+			print(tile.get_node("Tile_shape").get_overlapping_areas())
+
+func create_main_isle():
+	var radius:int = 3
+	for r:int in range(-radius,radius+1):
+		for q:int in range(-radius,radius+1):
+			for s:int in range(-radius,radius+1):
+				if r+q+s == 0:
+					axial_coordinates.append(Vector2i(r,q))
+	for i in range(len(axial_coordinates)):
+		var real_coor = axial_to_carth(axial_coordinates[i])
+		astar.add_point(i,real_coor+Vector3(0,5,0))
+		var tile = Ptile.instantiate()
+		list_tile.append(tile)
+		tile.get_node("Tile_shape").connect("area_entered",_on_area_entered)
+		Main.add_child(tile)
+		tile.global_position = real_coor
+	for i in range(len(axial_coordinates)):
+		var temp1 = axial_coordinates.find(Vector2i(axial_coordinates[i].x+1,axial_coordinates[i].y))
+		if not temp1 == -1:
+			astar.connect_points(i,temp1)
+		var temp2 = axial_coordinates.find(Vector2i(axial_coordinates[i].x+1,axial_coordinates[i].y-1))
+		if not temp2 == -1:
+			astar.connect_points(i,temp2)
+		var temp3 = axial_coordinates.find(Vector2i(axial_coordinates[i].x,axial_coordinates[i].y+1))
+		if not temp3 == -1:
+			astar.connect_points(i,temp3)
+		var temp4 = axial_coordinates.find(Vector2i(axial_coordinates[i].x,axial_coordinates[i].y-1))
+		if not temp4 == -1:
+			astar.connect_points(i,temp4)
+		var temp5 = axial_coordinates.find(Vector2i(axial_coordinates[i].x-1,axial_coordinates[i].y))
+		if not temp5 == -1:
+			astar.connect_points(i,temp5)
+		var temp6 = axial_coordinates.find(Vector2i(axial_coordinates[i].x-1,axial_coordinates[i].y+1))
+		if not temp6 == -1:
+			astar.connect_points(i,temp6)
+
+func life_loss(damage:int):
+	life -= damage
+	$UI/life_counter.set_text("Life : " + str(life))
+
+func summon_monster(pos:Vector3):
+	var monster = Pmonster.instantiate()
+	monster.set_position(pos+Vector3(0,5,0))
+	Main.add_child(monster)
+	monster.summon()
+
+func create_isle(size:int,direction:String):
+	var vector:Vector3
+	if direction == "S":
+		vector = axial_to_carth(carth_to_axial(Vector3(0,0,100)))
+	elif direction == "SE":
+		vector = axial_to_carth(carth_to_axial(Vector3(86,0,50)))
+	elif direction == "SW":
+		vector = axial_to_carth(carth_to_axial(Vector3(-86,0,50)))
+	elif direction == "N":
+		vector = axial_to_carth(carth_to_axial(Vector3(0,0,-100)))
+	elif direction == "NE":
+		vector = axial_to_carth(carth_to_axial(Vector3(86,0,-50)))
+	elif direction == "NW":
+		vector = axial_to_carth(carth_to_axial(Vector3(-86,0,-50)))
+	var castle = Ptower_base.instantiate()
+	castle.set_position(vector)
+	add_child(castle)
+	var tile:Node3D = Psub_tile.instantiate()
+	tile.add_to_group("sub_isle_tile")
+	castle.add_child(tile)
+	var isle:Array[Vector2i] = [Vector2i(0,0)]
+	for i in size-1:
+		var ax = axial[randi_range(0,5)]
+		while isle.has(ax):
+			ax += axial[randi_range(0,5)]
+		isle.append(ax)
+	for ax in isle:
+		tile = Ptile.instantiate()
+		tile.add_to_group("sub_isle_tile")
+		tile.set_position(axial_to_carth(ax))
+		castle.add_child(tile)
+		tile.get_node("Tile_shape").set_collision_layer(3)
+		tile.get_node("Tile_shape").set_collision_layer_value(1,false)
+		tile.get_node("Tile_shape").set_collision_mask_value(3,false)
+
+func axial_to_carth(coord:Vector2):
+	return Vector3(coord.x*r_dist+coord.y*s_dist,0,coord.y*q_dist)
+
+func carth_to_axial(coord:Vector3):
+	var z = roundi(coord.z/q_dist)
+	return Vector2(roundi((coord.x-z*s_dist)/r_dist),z)
+
+func _on_area_entered():
+	pass

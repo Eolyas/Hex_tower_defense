@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkyevhct4hbe7"]
+
+[ext_resource type="Script" path="res://Scripts/monster.gd" id="1_0bwye"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_38can"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dj2rc"]
+
+[node name="Monster" type="CharacterBody3D" groups=["monster"]]
+collision_layer = 2
+input_ray_pickable = false
+motion_mode = 1
+script = ExtResource("1_0bwye")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_38can")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 5, 0)
+shape = SubResource("CapsuleShape3D_dj2rc")

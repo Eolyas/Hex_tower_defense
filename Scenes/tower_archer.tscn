@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2m0lafmey8nr"]
+
+[ext_resource type="Script" path="res://Scripts/tower_archer.gd" id="1_untcb"]
+[ext_resource type="PackedScene" uid="uid://bi08vv1jb110a" path="res://Scenes/arrow.tscn" id="2_uqs7j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2fc5"]
+albedo_color = Color(0.211765, 0.172549, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1atoc"]
+material = SubResource("StandardMaterial3D_w2fc5")
+radius = 4.0
+height = 8.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7h1wl"]
+radius = 30.2633
+
+[node name="Tower_archer" type="Node3D"]
+script = ExtResource("1_untcb")
+Parrow = ExtResource("2_uqs7j")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.8652, 0)
+mesh = SubResource("SphereMesh_1atoc")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+input_ray_pickable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_7h1wl")
+
+[node name="Cooldown" type="Timer" parent="."]
+autostart = true
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.96, 0)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
