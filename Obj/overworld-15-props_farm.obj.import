@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bgxp8ke0qugk4"
+path="res://.godot/imported/overworld-15-props_farm.obj-d8387e2f538e65c86103bcdf12365635.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overworld-15-props_farm.obj-d8387e2f538e65c86103bcdf12365635.mesh"]
+
+source_file="res://Obj/overworld-15-props_farm.obj"
+dest_files=["res://.godot/imported/overworld-15-props_farm.obj-d8387e2f538e65c86103bcdf12365635.mesh", "res://.godot/imported/overworld-15-props_farm.obj-d8387e2f538e65c86103bcdf12365635.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

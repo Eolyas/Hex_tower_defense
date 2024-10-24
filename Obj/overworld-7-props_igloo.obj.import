@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cpvc05ig4ki4w"
+path="res://.godot/imported/overworld-7-props_igloo.obj-efdcb730638b287874bb3be3fb9a6427.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overworld-7-props_igloo.obj-efdcb730638b287874bb3be3fb9a6427.mesh"]
+
+source_file="res://Obj/overworld-7-props_igloo.obj"
+dest_files=["res://.godot/imported/overworld-7-props_igloo.obj-efdcb730638b287874bb3be3fb9a6427.mesh", "res://.godot/imported/overworld-7-props_igloo.obj-efdcb730638b287874bb3be3fb9a6427.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

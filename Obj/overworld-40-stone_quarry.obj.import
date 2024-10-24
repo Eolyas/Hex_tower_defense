@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://8ofp35wf22u5"
+path="res://.godot/imported/overworld-40-stone_quarry.obj-1f7cfa76f6865e05f583b5ab15344b3a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overworld-40-stone_quarry.obj-1f7cfa76f6865e05f583b5ab15344b3a.mesh"]
+
+source_file="res://Obj/overworld-40-stone_quarry.obj"
+dest_files=["res://.godot/imported/overworld-40-stone_quarry.obj-1f7cfa76f6865e05f583b5ab15344b3a.mesh", "res://.godot/imported/overworld-40-stone_quarry.obj-1f7cfa76f6865e05f583b5ab15344b3a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

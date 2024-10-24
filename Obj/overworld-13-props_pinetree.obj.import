@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cvbjc50uhjpqg"
+path="res://.godot/imported/overworld-13-props_pinetree.obj-8adc7e7a13b17c59e2be573eb22f562a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overworld-13-props_pinetree.obj-8adc7e7a13b17c59e2be573eb22f562a.mesh"]
+
+source_file="res://Obj/overworld-13-props_pinetree.obj"
+dest_files=["res://.godot/imported/overworld-13-props_pinetree.obj-8adc7e7a13b17c59e2be573eb22f562a.mesh", "res://.godot/imported/overworld-13-props_pinetree.obj-8adc7e7a13b17c59e2be573eb22f562a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

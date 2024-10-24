@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dq7nmm5h2il3c"
+path="res://.godot/imported/overworld-30-sand_2px.obj-d72dde559511f7fdc50516f1300d13fa.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overworld-30-sand_2px.obj-d72dde559511f7fdc50516f1300d13fa.mesh"]
+
+source_file="res://Obj/overworld-30-sand_2px.obj"
+dest_files=["res://.godot/imported/overworld-30-sand_2px.obj-d72dde559511f7fdc50516f1300d13fa.mesh", "res://.godot/imported/overworld-30-sand_2px.obj-d72dde559511f7fdc50516f1300d13fa.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

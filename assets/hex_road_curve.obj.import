@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bpkaa7rcbda5r"
+path="res://.godot/imported/hex_road_curve.obj-1d135de29ebb7cfc8adc2e3ef7611749.mesh"
+
+[deps]
+
+files=["res://.godot/imported/hex_road_curve.obj-1d135de29ebb7cfc8adc2e3ef7611749.mesh"]
+
+source_file="res://assets/hex_road_curve.obj"
+dest_files=["res://.godot/imported/hex_road_curve.obj-1d135de29ebb7cfc8adc2e3ef7611749.mesh", "res://.godot/imported/hex_road_curve.obj-1d135de29ebb7cfc8adc2e3ef7611749.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://br6iwxyq3l86s"
+path="res://.godot/imported/stamina_potion.obj-a9aff3c135c33bf15fe0fca2f13c7251.mesh"
+
+[deps]
+
+files=["res://.godot/imported/stamina_potion.obj-a9aff3c135c33bf15fe0fca2f13c7251.mesh"]
+
+source_file="res://Obj/stamina_potion.obj"
+dest_files=["res://.godot/imported/stamina_potion.obj-a9aff3c135c33bf15fe0fca2f13c7251.mesh", "res://.godot/imported/stamina_potion.obj-a9aff3c135c33bf15fe0fca2f13c7251.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

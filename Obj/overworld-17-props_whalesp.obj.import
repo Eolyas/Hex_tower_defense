@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ciqp4stfhemfu"
+path="res://.godot/imported/overworld-17-props_whalesp.obj-b03aef262173db49fcf87c949c041930.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overworld-17-props_whalesp.obj-b03aef262173db49fcf87c949c041930.mesh"]
+
+source_file="res://Obj/overworld-17-props_whalesp.obj"
+dest_files=["res://.godot/imported/overworld-17-props_whalesp.obj-b03aef262173db49fcf87c949c041930.mesh", "res://.godot/imported/overworld-17-props_whalesp.obj-b03aef262173db49fcf87c949c041930.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

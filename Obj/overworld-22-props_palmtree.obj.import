@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bfgispnh8ocbk"
+path="res://.godot/imported/overworld-22-props_palmtree.obj-9ff8d45f04ad88f732dd4785ed1ecac6.mesh"
+
+[deps]
+
+files=["res://.godot/imported/overworld-22-props_palmtree.obj-9ff8d45f04ad88f732dd4785ed1ecac6.mesh"]
+
+source_file="res://Obj/overworld-22-props_palmtree.obj"
+dest_files=["res://.godot/imported/overworld-22-props_palmtree.obj-9ff8d45f04ad88f732dd4785ed1ecac6.mesh", "res://.godot/imported/overworld-22-props_palmtree.obj-9ff8d45f04ad88f732dd4785ed1ecac6.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
