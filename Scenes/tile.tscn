@@ -1,12 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cn8hiju3xo1my"]
+[gd_scene load_steps=3 format=3 uid="uid://cn8hiju3xo1my"]
 
 [ext_resource type="ArrayMesh" uid="uid://c8dd3tem1ucaq" path="res://Assets/Hexagone Base V2.obj" id="1_68yp1"]
 [ext_resource type="Shape3D" uid="uid://njhm6w3dr22" path="res://Assets/hex_shape_3d.tres" id="2_swwmb"]
-[ext_resource type="PhysicsMaterial" uid="uid://bwv4048gc2s85" path="res://physics_material/tile_material.tres" id="3_trual"]
 
-[node name="Tile" type="StaticBody3D" groups=["empty", "tile"]]
-collision_mask = 4
-physics_material_override = ExtResource("3_trual")
+[node name="Tile" type="Node3D" groups=["tile"]]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -14.8, 0)
@@ -16,7 +13,4 @@ mesh = ExtResource("1_68yp1")
 collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tile_shape"]
-shape = ExtResource("2_swwmb")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = ExtResource("2_swwmb")

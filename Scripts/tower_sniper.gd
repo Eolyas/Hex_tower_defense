@@ -23,8 +23,8 @@ func _on_cooldown_timeout():
 		var temp_index:int = 0
 		var temp_distance:float = 0
 		for i in range(list_monster.size()):
-			var m_dist:float = list_monster[i]._get_distance_from_target().size()
-			if m_dist < temp_distance:
+			var m_dist:float = list_monster[i].global_position - global_position
+			if m_dist > temp_distance:
 				temp_distance = m_dist
 				temp_index = i
 		var arrow = Parrow.instantiate()

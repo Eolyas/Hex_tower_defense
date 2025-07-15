@@ -1,14 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://dfmbp42skip52"]
+[gd_scene load_steps=10 format=3 uid="uid://dfmbp42skip52"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_doyg5"]
 [ext_resource type="PackedScene" uid="uid://cn8hiju3xo1my" path="res://Scenes/tile.tscn" id="2_3u2nu"]
 [ext_resource type="PackedScene" uid="uid://bf80f5umeqjqs" path="res://Scenes/tower_base.tscn" id="3_kcviy"]
 [ext_resource type="PackedScene" uid="uid://b3n146xnym5o2" path="res://Scenes/tower_heart.tscn" id="4_ux3nx"]
 [ext_resource type="PackedScene" uid="uid://bkyevhct4hbe7" path="res://Scenes/monster.tscn" id="5_8twhf"]
-[ext_resource type="PackedScene" uid="uid://b2v3x4wuluake" path="res://Scenes/ui.tscn" id="6_mbxwb"]
+[ext_resource type="PackedScene" uid="uid://b2v3x4wuluake" path="res://scenes/ui.tscn" id="6_mbxwb"]
 [ext_resource type="PackedScene" uid="uid://c2m0lafmey8nr" path="res://Scenes/tower_archer.tscn" id="6_ndmy1"]
-[ext_resource type="PackedScene" uid="uid://d3e30ta35nrm" path="res://Scenes/tower_area.tscn" id="7_uabf7"]
-[ext_resource type="PackedScene" uid="uid://b103dm4clwlve" path="res://Scenes/tower_sniper.tscn" id="8_tcg71"]
 
 [sub_resource type="GDScript" id="GDScript_hksir"]
 script/source = "extends CharacterBody3D
@@ -39,8 +37,6 @@ Ptower_base = ExtResource("3_kcviy")
 Ptower_heart = ExtResource("4_ux3nx")
 Pmonster = ExtResource("5_8twhf")
 Ptower_archer = ExtResource("6_ndmy1")
-Ptower_area = ExtResource("7_uabf7")
-Ptower_sniper = ExtResource("8_tcg71")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -4.07107e-08, -0.5, 0.353553, 0.707107, 0.612372, 0.353553, -0.707107, 0.612372, 0, 292, 0)

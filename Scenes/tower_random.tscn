@@ -1,25 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2m0lafmey8nr"]
+[gd_scene load_steps=5 format=3 uid="uid://dtb3er0i1c65v"]
 
-[ext_resource type="Script" path="res://Scripts/tower_archer.gd" id="1_untcb"]
-[ext_resource type="PackedScene" uid="uid://bi08vv1jb110a" path="res://Scenes/arrow.tscn" id="2_uqs7j"]
+[ext_resource type="Script" path="res://Scripts/tower_random.gd" id="1_ioqjo"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k63ax"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8d00w"]
+albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="SphereMesh" id="SphereMesh_1atoc"]
-material = SubResource("StandardMaterial3D_k63ax")
+[sub_resource type="SphereMesh" id="SphereMesh_csq32"]
+material = SubResource("StandardMaterial3D_8d00w")
 radius = 4.0
 height = 8.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7h1wl"]
 radius = 30.0
 
-[node name="Tower_archer" type="Node3D"]
-script = ExtResource("1_untcb")
-Parrow = ExtResource("2_uqs7j")
+[node name="Tower_random" type="Node3D"]
+script = ExtResource("1_ioqjo")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.8652, 0)
-mesh = SubResource("SphereMesh_1atoc")
+mesh = SubResource("SphereMesh_csq32")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0

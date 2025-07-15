@@ -1,21 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2m0lafmey8nr"]
+[gd_scene load_steps=5 format=3 uid="uid://b103dm4clwlve"]
 
-[ext_resource type="Script" path="res://Scripts/tower_archer.gd" id="1_untcb"]
-[ext_resource type="PackedScene" uid="uid://bi08vv1jb110a" path="res://Scenes/arrow.tscn" id="2_uqs7j"]
+[ext_resource type="Script" path="res://Scripts/tower_sniper.gd" id="1_5gg2u"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k63ax"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2fc5"]
+albedo_color = Color(0.384314, 0.223529, 0.00784314, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_1atoc"]
-material = SubResource("StandardMaterial3D_k63ax")
+material = SubResource("StandardMaterial3D_w2fc5")
 radius = 4.0
 height = 8.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7h1wl"]
 radius = 30.0
 
-[node name="Tower_archer" type="Node3D"]
-script = ExtResource("1_untcb")
-Parrow = ExtResource("2_uqs7j")
+[node name="Tower_sniper" type="Node3D"]
+script = ExtResource("1_5gg2u")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.8652, 0)

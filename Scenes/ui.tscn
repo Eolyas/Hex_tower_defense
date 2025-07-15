@@ -34,3 +34,103 @@ offset_left = 3.0
 offset_top = 153.0
 offset_right = 280.0
 offset_bottom = 196.0
+
+[node name="gold" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -49.0
+offset_top = 32.0
+offset_bottom = 56.0
+grow_horizontal = 0
+
+[node name="wave" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_top = 58.0
+offset_bottom = 88.0
+grow_horizontal = 0
+
+[node name="button_master" type="Control" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.998
+offset_right = 1.0
+offset_bottom = 0.295959
+metadata/_edit_use_anchors_ = true
+
+[node name="button_s" type="Button" parent="button_master"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 77.0
+offset_top = -40.0
+offset_right = -91.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="button_n" type="Button" parent="button_master"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 77.0
+offset_right = -98.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="button_sw" type="Button" parent="button_master"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.496
+anchor_bottom = 1.0
+offset_top = 0.0879822
+offset_right = 36.0
+grow_vertical = 2
+
+[node name="button_nw" type="Button" parent="button_master"]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 0.5
+offset_right = 38.0
+offset_bottom = -6.5
+grow_vertical = 2
+
+[node name="button_se" type="Button" parent="button_master"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -74.0
+offset_top = 4.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="button_ne" type="Button" parent="button_master"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 0.501
+offset_left = -76.0
+offset_bottom = -0.147034
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="list_tower" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 429.0
+offset_right = 143.0
+offset_bottom = 605.0
+allow_search = false
+auto_height = true
+text_overrun_behavior = 0
+same_column_width = true
