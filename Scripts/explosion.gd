@@ -1,8 +1,6 @@
 extends Node3D
 
-var target
-@export var speed = 1
-@export var damage = 1
+@export var damage = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,18 +9,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	var direction = Vector3(0,0,0)
-	direction = (global_position.direction_to(target.global_position)).normalized()
-	global_position += direction * speed
-
-func set_target(temp):
-	target = temp
+	pass
 
 
 func _on_body_entered(body):
 	if body.is_in_group("monster"):
 		body.health -= damage
-		queue_free()
-
-func target_destroyed():
-	queue_free()

@@ -14,7 +14,7 @@ var s_dist:float = 11.1
 @export var Ptower_archer:PackedScene
 @export var Ptower_area:PackedScene
 @export var Ptower_sniper:PackedScene
-@onready var Main:CharacterBody3D = $Main_island
+@export var Ptower_random:PackedScene
 
 var astar:AStar3D = AStar3D.new()
 var axial:Array[Vector3i] = [Vector3i(-1,1,0),Vector3i(1,-1,0),Vector3i(0,1,-1),Vector3i(-1,0,1),Vector3i(1,0,-1),Vector3i(0,-1,1)]
@@ -38,16 +38,17 @@ func _ready():
 	list_tower.add_item("Archer")
 	list_tower.add_item("Area")
 	list_tower.add_item("Sniper")
+	list_tower.add_item("Random")
 	create_main_isle()
 	var heart = Ptower_heart.instantiate()
-	Main.add_child(heart)
+	add_child(heart)
 	heart.global_position = Vector3(0,0,0)
 
 func _process(_delta):
 	if Input.is_action_just_pressed("add_tower"):
 		var mouse_pos:Vector2 = get_viewport().get_mouse_position()
-		var origin:Vector3 = $Main_island/Marker3D/Camera3D.project_ray_origin(mouse_pos)
-		var end:Vector3 = origin + $Main_island/Marker3D/Camera3D.project_ray_normal(mouse_pos) * 1000
+		var origin:Vector3 = $Marker3D/Camera3D.project_ray_origin(mouse_pos)
+		var end:Vector3 = origin + $Marker3D/Camera3D.project_ray_normal(mouse_pos) * 1000
 		var query:PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end)
 		query.set_collide_with_areas(true)
 		var collision:Dictionary = get_world_3d().direct_space_state.intersect_ray(query)
@@ -75,6 +76,10 @@ func _process(_delta):
 					elif current_tower == "Sniper":
 						var tower_sniper = Ptower_sniper.instantiate()
 						entity.add_child(tower_sniper)
+						entity.remove_from_group("empty")
+					elif current_tower == "Random":
+						var tower_random = Ptower_random.instantiate()
+						entity.add_child(tower_random)
 						entity.remove_from_group("empty")
 				
 	#if Input.is_action_just_pressed("add_monster"):
@@ -113,7 +118,7 @@ func create_main_isle():
 		var tile = Ptile.instantiate()
 		list_tile.append(tile)
 		tile.get_node("Tile_shape").connect("area_entered",_on_area_entered)
-		Main.add_child(tile)
+		add_child(tile)
 		tile.global_position = real_coor
 		tile.add_to_group("empty")
 	var regex = RegEx.new()
@@ -150,13 +155,13 @@ func life_loss(damage:int):
 func summon_monster(pos:Vector3):
 	var monster = Pmonster.instantiate()
 	monster.set_position(pos+Vector3(0,5,0))
-	Main.add_child(monster)
+	add_child(monster)
 	monster.summon()
 
 func create_isle(vector:Vector3):
 	var tile:Node3D = Ptile.instantiate()
 	tile.set_position(vector)
-	Main.add_child(tile)
+	add_child(tile)
 	var castle:Node3D = Ptower_base.instantiate()
 	tile.add_child(castle)
 	list_tile.append(tile)
@@ -237,7 +242,7 @@ func _on_button_sw_pressed():
 
 func wave_start(coord:Vector3,castle:Node3D):
 	var counter:int = 0
-	for child in Main.get_children():
+	for child in get_children():
 		if child.is_in_group("monster"):
 			counter += 1
 	add_gold(10*counter)

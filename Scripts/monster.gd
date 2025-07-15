@@ -22,7 +22,7 @@ func _physics_process(delta):
 		queue_free()
 	if global_position.distance_to(Vector3(0,0,0)) < 10:
 		queue_free()
-		get_parent_node_3d().get_parent_node_3d().life_loss(damage)
+		get_parent_node_3d().life_loss(damage)
 	var direction:Vector3 = Vector3(0,0,0)
 	if global_position.distance_to(path[0]) < deviation:
 		path.remove_at(0)
@@ -35,7 +35,7 @@ func _get_path():
 	path = astar.get_point_path(current_ID,ID_target)
 
 func summon():
-	astar = get_parent_node_3d().get_parent_node_3d().astar
+	astar = get_parent_node_3d().astar
 	ID_target = astar.get_closest_point(Vector3(0,0,0))
 	_get_path()
 

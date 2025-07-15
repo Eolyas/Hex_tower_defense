@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dfmbp42skip52"]
+[gd_scene load_steps=11 format=3 uid="uid://dfmbp42skip52"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_doyg5"]
 [ext_resource type="PackedScene" uid="uid://cn8hiju3xo1my" path="res://Scenes/tile.tscn" id="2_3u2nu"]
@@ -9,28 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c2m0lafmey8nr" path="res://Scenes/tower_archer.tscn" id="6_ndmy1"]
 [ext_resource type="PackedScene" uid="uid://d3e30ta35nrm" path="res://Scenes/tower_area.tscn" id="7_uabf7"]
 [ext_resource type="PackedScene" uid="uid://b103dm4clwlve" path="res://Scenes/tower_sniper.tscn" id="8_tcg71"]
-
-[sub_resource type="GDScript" id="GDScript_hksir"]
-script/source = "extends CharacterBody3D
-
-@export var speed:float = 100.0
-
-func _physics_process(_delta):
-	var direction:Vector3 = Vector3(0,0,0)
-	if Input.is_action_pressed(\"right\"):
-		direction += Vector3(1,0,0)
-	if Input.is_action_pressed(\"left\"):
-		direction += Vector3(-1,0,0)
-	if Input.is_action_pressed(\"top\"):
-		direction += Vector3(0,0,-1)
-	if Input.is_action_pressed(\"bottom\"):
-		direction += Vector3(0,0,1)
-	direction.normalized()
-	velocity = speed * direction
-	move_and_slide()
-"
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_p6ag8"]
+[ext_resource type="PackedScene" uid="uid://dtb3er0i1c65v" path="res://Scenes/tower_random.tscn" id="9_fguyk"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_doyg5")
@@ -41,6 +20,7 @@ Pmonster = ExtResource("5_8twhf")
 Ptower_archer = ExtResource("6_ndmy1")
 Ptower_area = ExtResource("7_uabf7")
 Ptower_sniper = ExtResource("8_tcg71")
+Ptower_random = ExtResource("9_fguyk")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -4.07107e-08, -0.5, 0.353553, 0.707107, 0.612372, 0.353553, -0.707107, 0.612372, 0, 292, 0)
@@ -60,19 +40,8 @@ current = true
 
 [node name="UI" parent="." instance=ExtResource("6_mbxwb")]
 
-[node name="Main_island" type="CharacterBody3D" parent="."]
-collision_layer = 0
-collision_mask = 4
-motion_mode = 1
-platform_on_leave = 2
-platform_wall_layers = 4
-script = SubResource("GDScript_hksir")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Main_island"]
-shape = SubResource("SphereShape3D_p6ag8")
-
-[node name="Marker3D" type="Marker3D" parent="Main_island"]
+[node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.669131, 0.743145, 0, -0.743145, 0.669131, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Main_island/Marker3D"]
+[node name="Camera3D" type="Camera3D" parent="Marker3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 200)
