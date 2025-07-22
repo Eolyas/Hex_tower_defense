@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dfmbp42skip52"]
+[gd_scene load_steps=12 format=3 uid="uid://dfmbp42skip52"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_doyg5"]
 [ext_resource type="PackedScene" uid="uid://cn8hiju3xo1my" path="res://Scenes/tile.tscn" id="2_3u2nu"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d3e30ta35nrm" path="res://Scenes/tower_area.tscn" id="7_uabf7"]
 [ext_resource type="PackedScene" uid="uid://b103dm4clwlve" path="res://Scenes/tower_sniper.tscn" id="8_tcg71"]
 [ext_resource type="PackedScene" uid="uid://dtb3er0i1c65v" path="res://Scenes/tower_random.tscn" id="9_fguyk"]
+[ext_resource type="PackedScene" uid="uid://dyvscom2nviv3" path="res://Scenes/soul_collector.tscn" id="10_jkv11"]
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_doyg5")
@@ -21,6 +22,7 @@ Ptower_archer = ExtResource("6_ndmy1")
 Ptower_area = ExtResource("7_uabf7")
 Ptower_sniper = ExtResource("8_tcg71")
 Ptower_random = ExtResource("9_fguyk")
+Psoul_collector = ExtResource("10_jkv11")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866025, -4.07107e-08, -0.5, 0.353553, 0.707107, 0.612372, 0.353553, -0.707107, 0.612372, 0, 292, 0)

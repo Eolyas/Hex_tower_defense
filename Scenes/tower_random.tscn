@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtb3er0i1c65v"]
+[gd_scene load_steps=5 format=3 uid="uid://dtb3er0i1c65v"]
 
 [ext_resource type="Script" path="res://Scripts/tower_random.gd" id="1_ioqjo"]
+[ext_resource type="PackedScene" uid="uid://ckdttpklmw882" path="res://Scenes/explosion.tscn" id="2_gd2u3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8d00w"]
 albedo_color = Color(0, 0, 0, 1)
@@ -12,12 +13,14 @@ height = 8.0
 
 [node name="Tower_random" type="Node3D"]
 script = ExtResource("1_ioqjo")
+Pexplosion = ExtResource("2_gd2u3")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.8652, 0)
 mesh = SubResource("SphereMesh_csq32")
 
 [node name="Cooldown" type="Timer" parent="."]
+wait_time = 2.0
 autostart = true
 
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

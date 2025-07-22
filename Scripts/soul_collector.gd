@@ -1,6 +1,5 @@
 extends Node3D
 
-@export var damage:float = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -12,6 +11,7 @@ func _process(_delta):
 	pass
 
 
-func _on_body_entered(body):
+func _on_area_3d_body_exited(body):
 	if body.is_in_group("monster"):
-		body.health -= damage
+		if randi_range(0,10) > 5:
+			get_parent_node_3d().get_parent_node_3d().get_parent_node_3d().soul_counter += 1

@@ -2,6 +2,7 @@ extends Node3D
 
 @export var life:int = 20
 @export var gold:int = 100
+var soul_counter:int = 0
 var current_tower:String
 var wave_counter:int = 0
 var r_dist:float = 22.2
@@ -15,6 +16,8 @@ var s_dist:float = 11.1
 @export var Ptower_area:PackedScene
 @export var Ptower_sniper:PackedScene
 @export var Ptower_random:PackedScene
+@export var Psoul_collector:PackedScene
+var list_augment:Dictionary
 
 var astar:AStar3D = AStar3D.new()
 var axial:Array[Vector3i] = [Vector3i(-1,1,0),Vector3i(1,-1,0),Vector3i(0,1,-1),Vector3i(-1,0,1),Vector3i(1,0,-1),Vector3i(0,-1,1)]
@@ -26,6 +29,7 @@ func _ready():
 	$UI/life_counter.set_text("Life : " + str(life))
 	$UI/gold.set_text("Gold : " + str(gold))
 	$UI/wave.set_text("Wave : " + str(wave_counter))
+	$UI/soul_counter.set_text("Souls : " + str(soul_counter))
 	$UI/button_master/button_n.pressed.connect(_on_button_n_pressed)
 	$UI/button_master/button_s.pressed.connect(_on_button_s_pressed)
 	$UI/button_master/button_ne.pressed.connect(_on_button_ne_pressed)
@@ -39,6 +43,7 @@ func _ready():
 	list_tower.add_item("Area")
 	list_tower.add_item("Sniper")
 	list_tower.add_item("Random")
+	list_tower.add_item("Soul_collector")
 	create_main_isle()
 	var heart = Ptower_heart.instantiate()
 	add_child(heart)
@@ -66,22 +71,28 @@ func _process(_delta):
 						entity.remove_from_group("empty")
 				elif entity.is_in_group("tower_base"):
 					if current_tower == "Archer":
-						var tower_archer = Ptower_archer.instantiate()
-						entity.add_child(tower_archer)
+						var tower = Ptower_archer.instantiate()
+						entity.add_child(tower)
 						entity.remove_from_group("empty")
 					elif current_tower == "Area":
-						var tower_area = Ptower_area.instantiate()
-						entity.add_child(tower_area)
+						var tower = Ptower_area.instantiate()
+						entity.add_child(tower)
 						entity.remove_from_group("empty")
 					elif current_tower == "Sniper":
-						var tower_sniper = Ptower_sniper.instantiate()
-						entity.add_child(tower_sniper)
+						var tower = Ptower_sniper.instantiate()
+						entity.add_child(tower)
 						entity.remove_from_group("empty")
 					elif current_tower == "Random":
-						var tower_random = Ptower_random.instantiate()
-						entity.add_child(tower_random)
+						var tower = Ptower_random.instantiate()
+						entity.add_child(tower)
 						entity.remove_from_group("empty")
-				
+					elif current_tower == "Soul_collector":
+						var tower = Psoul_collector.instantiate()
+						entity.add_child(tower)
+						entity.remove_from_group("empty")
+	if wave_counter == 5:
+		$UI/button_master.set_visible(false)
+		
 	#if Input.is_action_just_pressed("add_monster"):
 		#var mouse_pos:Vector2 = get_viewport().get_mouse_position()
 		#var origin:Vector3 = $Main_island/Marker3D/Camera3D.project_ray_origin(mouse_pos)
@@ -151,6 +162,10 @@ func create_main_isle():
 func life_loss(damage:int):
 	life -= damage
 	$UI/life_counter.set_text("Life : " + str(life))
+
+func soul_variation(number:int):
+	soul_counter += number
+	$UI/soul_counter.set_text("Souls : " + str(soul_counter))
 
 func summon_monster(pos:Vector3):
 	var monster = Pmonster.instantiate()

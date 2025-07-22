@@ -2,10 +2,12 @@ extends Node3D
 
 var list_monster:Array = []
 @export var Parrow:PackedScene
+var attack_speed:float = 0.33
+var damage:float = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Cooldown.set_wait_time(1/attack_speed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -29,9 +31,18 @@ func _on_cooldown_timeout():
 				temp_index = i
 		var arrow = Parrow.instantiate()
 		add_child(arrow)
+		arrow.damage = damage
 		arrow.global_position = $Marker3D.global_position
 		arrow.set_target(list_monster[temp_index])
 
 
 func _on_area_3d_body_exited(body):
 	list_monster.erase(body)
+
+func attack_speed_add(number:float):
+	attack_speed += number
+	$Cooldown.set_wait_time(1/attack_speed)
+
+func attack_speed_multi(number:float):
+	attack_speed *= number
+	$Cooldown.set_wait_time(1/attack_speed)

@@ -40,4 +40,4 @@ func summon():
 	_get_path()
 
 func _get_distance_from_target():
-	return astar.get_id_path(astar.get_closest_point(global_position),0)
+	return astar.get_id_path(astar.get_closest_point(global_position),100100)
