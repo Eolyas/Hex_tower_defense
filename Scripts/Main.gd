@@ -67,7 +67,7 @@ func _process(_delta):
 						entity.remove_from_group("empty")
 						tower_base.add_to_group("empty")
 						tower_base.add_to_group("tower_base")
-						astar.remove_point(astar.get_closest_point(entity.global_position))
+						astar.set_point_disabled(astar.get_closest_point(entity.global_position))
 						entity.remove_from_group("empty")
 				elif entity.is_in_group("tower_base"):
 					if current_tower == "Archer":
@@ -90,8 +90,6 @@ func _process(_delta):
 						var tower = Psoul_collector.instantiate()
 						entity.add_child(tower)
 						entity.remove_from_group("empty")
-	if wave_counter == 5:
-		$UI/button_master.set_visible(false)
 		
 	#if Input.is_action_just_pressed("add_monster"):
 		#var mouse_pos:Vector2 = get_viewport().get_mouse_position()
@@ -114,21 +112,10 @@ func create_main_isle():
 					axial_coordinates.append(Vector3i(r,q,s))
 	for i in axial_coordinates:
 		var real_coor = axial_to_carth(i)
-		var index:String = ""
-		if i.x < 0:
-			index += "20"
-		else:
-			index += "10"
-		index += str(abs(i.x))
-		if i.y < 0:
-			index += "20"
-		else:
-			index += "10"
-		index += str(abs(i.y))
+		var index:String = get_astar_index(i)
 		astar.add_point(int(index),real_coor+Vector3(0,5,0))
 		var tile = Ptile.instantiate()
 		list_tile.append(tile)
-		tile.get_node("Tile_shape").connect("area_entered",_on_area_entered)
 		add_child(tile)
 		tile.global_position = real_coor
 		tile.add_to_group("empty")
@@ -145,17 +132,7 @@ func create_main_isle():
 		var index:Vector2i = Vector2i(result[0],result[1])
 		for j in axial:
 			j += Vector3i(index.x,index.y,0)
-			var index_n:String = ""
-			if j.x < 0:
-				index_n += "20"
-			else:
-				index_n += "10"
-			index_n += str(abs(j.x))
-			if j.y < 0:
-				index_n += "20"
-			else:
-				index_n += "10"
-			index_n += str(abs(j.y))
+			var index_n:String = get_astar_index(j)
 			if not astar.are_points_connected(i,int(index_n)) and astar.has_point(int(index_n)):
 				astar.connect_points(i,int(index_n))
 
@@ -173,14 +150,23 @@ func summon_monster(pos:Vector3):
 	add_child(monster)
 	monster.summon()
 
-func create_isle(vector:Vector3):
+func create_isle(vector_ax:Vector3i):
 	var tile:Node3D = Ptile.instantiate()
+	var vector:Vector3 = axial_to_carth(vector_ax)
 	tile.set_position(vector)
 	add_child(tile)
 	var castle:Node3D = Ptower_base.instantiate()
 	tile.add_child(castle)
 	list_tile.append(tile)
 	axial_coordinates.append(carth_to_axial(vector))
+	var index:int = int(get_astar_index(vector_ax))
+	astar.add_point(int(index),vector+Vector3(0,5,0))
+	var list_neighbours:Array = axial.map(func(element): return element + vector_ax)
+	for i:Vector3i in list_neighbours:
+		var ind:int = int(get_astar_index(i))
+		if astar.has_point(ind):
+			if not astar.are_points_connected(ind,index):
+				astar.connect_points(index,ind)
 	wave_start(vector,castle)
 
 func axial_to_carth(coord:Vector3i):
@@ -192,64 +178,75 @@ func carth_to_axial(coord:Vector3):
 	var s:int = -r-q
 	return Vector3i(r,q,s)
 
-func _on_area_entered(_body):
-	pass
+func get_astar_index(vector_ax:Vector3i):
+	var index:String = ""
+	if vector_ax.x < 0:
+		index += "20"
+	else:
+		index += "10"
+	index += str(abs(vector_ax.x))
+	if vector_ax.y < 0:
+		index += "20"
+	else:
+		index += "10"
+	index += str(abs(vector_ax.y))
+	return index
 
 func _on_button_n_pressed():
-	var list_available_coord:Array[Vector3] = []
+	var list_available_coord:Array[Vector3i] = []
 	for coord in axial_coordinates:
 		if Vector3i(coord.x-1,coord.y,coord.z+1) in axial_coordinates and Vector3i(coord.x,coord.y-1,coord.z+1) not in axial_coordinates:
-			list_available_coord.append(axial_to_carth(Vector3i(coord.x,coord.y-1,coord.z+1)))
+			list_available_coord.append(Vector3i(coord.x,coord.y-1,coord.z+1))
 	if list_available_coord:
 		create_isle(list_available_coord.pick_random())
 	else:
 		print("no possible room for island")
 
 func _on_button_s_pressed():
-	var list_available_coord:Array[Vector3] = []
+	var list_available_coord:Array[Vector3i] = []
 	for coord in axial_coordinates:
 		if Vector3i(coord.x-1,coord.y,coord.z+1) in axial_coordinates and Vector3i(coord.x-1,coord.y+1,coord.z) not in axial_coordinates:
-			list_available_coord.append(axial_to_carth(Vector3i(coord.x-1,coord.y+1,coord.z)))
+			list_available_coord.append(Vector3i(coord.x-1,coord.y+1,coord.z))
 	if list_available_coord:
 		create_isle(list_available_coord.pick_random())
 	else:
 		print("no possible room for island")
 
 func _on_button_ne_pressed():
-	var list_available_coord:Array[Vector3] = []
+	var list_available_coord:Array[Vector3i] = []
 	for coord in axial_coordinates:
 		if Vector3i(coord.x,coord.y-1,coord.z+1) in axial_coordinates and Vector3i(coord.x+1,coord.y-1,coord.z) not in axial_coordinates:
-			list_available_coord.append(axial_to_carth(Vector3i(coord.x+1,coord.y-1,coord.z)))
+			list_available_coord.append(Vector3i(coord.x+1,coord.y-1,coord.z))
 	if list_available_coord:
 		create_isle(list_available_coord.pick_random())
 	else:
 		print("no possible room for island")
 
 func _on_button_nw_pressed():
-	var list_available_coord:Array[Vector3] = []
+	var list_available_coord:Array[Vector3i] = []
 	for coord in axial_coordinates:
 		if Vector3i(coord.x-1,coord.y+1,coord.z) in axial_coordinates and Vector3i(coord.x-1,coord.y,coord.z+1) not in axial_coordinates:
-			list_available_coord.append(axial_to_carth(Vector3i(coord.x-1,coord.y,coord.z+1)))
+			list_available_coord.append(Vector3i(coord.x-1,coord.y,coord.z+1))
 	if list_available_coord:
 		create_isle(list_available_coord.pick_random())
 	else:
 		print("no possible room for island")
 
 func _on_button_se_pressed():
-	var list_available_coord:Array[Vector3] = []
+	var list_available_coord:Array[Vector3i] = []
 	for coord in axial_coordinates:
 		if Vector3i(coord.x-1,coord.y+1,coord.z) in axial_coordinates and Vector3i(coord.x,coord.y+1,coord.z-1) not in axial_coordinates:
-			list_available_coord.append(axial_to_carth(Vector3i(coord.x,coord.y+1,coord.z-1)))
+			list_available_coord.append(Vector3i(coord.x,coord.y+1,coord.z-1))
 	if list_available_coord:
 		create_isle(list_available_coord.pick_random())
 	else:
 		print("no possible room for island")
 
 func _on_button_sw_pressed():
-	var list_available_coord:Array[Vector3] = []
+	var list_available_coord:Array[Vector3i] = []
 	for coord in axial_coordinates:
 		if Vector3i(coord.x,coord.y-1,coord.z+1) in axial_coordinates and Vector3i(coord.x-1,coord.y,coord.z+1) not in axial_coordinates:
-			list_available_coord.append(axial_to_carth(Vector3i(coord.x-1,coord.y,coord.z+1)))
+			list_available_coord.append(Vector3i(coord.x-1,coord.y,coord.z+1))
 	if list_available_coord:
 		create_isle(list_available_coord.pick_random())
 	else:
